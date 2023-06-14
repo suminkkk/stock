@@ -12,7 +12,7 @@ df = fdr.DataReader('KS11')
 df = df.reset_index()
 
 # 캔들스틱 차트 생성
-fig = go.Figure(data=go.Candlestick(x=df['Date'],
+fig = go.Figure(data=go.Candlestick(
                                    open=df['Open'],
                                    high=df['High'],
                                    low=df['Low'],
