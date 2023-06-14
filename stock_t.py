@@ -7,9 +7,10 @@ st.subheader("KS11")
 
 # KS11 데이터 가져오기
 df = fdr.DataReader('KS11')
-
+print(df.head())
 # 캔들스틱 차트 생성
 fig = go.Figure(data=go.Candlestick(x=df.index,
+                                    date = df['Date'],
                                    open=df['Open'],
                                    high=df['High'],
                                    low=df['Low'],
