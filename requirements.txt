@@ -1,5 +1,2 @@
-streamlit
-plotly
 pandas
-Workbook
 openpyxl
