@@ -1,3 +1,4 @@
-pip
+streamlit
+plotly
 finance-datareader==0.9.1
 pandas==1.0.0
