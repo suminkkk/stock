@@ -1,2 +1,2 @@
 finance-datareader
-BeautifulSoup
+beautifulsoup4
