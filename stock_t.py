@@ -1,6 +1,7 @@
 import streamlit as st
 import FinanceDataReader as fdr
 import plotly.graph_objects as go
+import pandas as pd
 
 st.title("KOSPI 주식 차트")
 st.subheader("KS11")
