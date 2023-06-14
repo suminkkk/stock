@@ -12,7 +12,7 @@ def plot_stock_chart(symbol, start_date, end_date):
     df = fdr.DataReader(symbol, start_date, end_date)
     
     fig = go.Figure(data=go.Candlestick(x=df.index,
-                                        open=df['Open'],
+                                        open=df["Open"],
                                         high=df['High'],
                                         low=df['Low'],
                                         close=df['Close']))
