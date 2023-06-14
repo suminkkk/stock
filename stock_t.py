@@ -13,7 +13,7 @@ df = df.reset_index()
 
 # 캔들스틱 차트 생성
 fig = go.Figure(data=go.Candlestick(
-                                   open=df['Open'],
+                                   open=df[Open],
                                    high=df['High'],
                                    low=df['Low'],
                                    close=df['Close']))
