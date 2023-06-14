@@ -9,11 +9,11 @@ st.subheader("KS11")
 df = fdr.DataReader('KS11')
 
 # 데이터프레임의 인덱스를 날짜 열로 변경
-df = df.reset_index()
+df.reset_index(inplace=True)
 
 # 캔들스틱 차트 생성
-fig = go.Figure(data=go.Candlestick(
-                                   open=df[Open],
+fig = go.Figure(data=go.Candlestick(x=df['Date'],
+                                   open=df['Open'],
                                    high=df['High'],
                                    low=df['Low'],
                                    close=df['Close']))
