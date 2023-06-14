@@ -8,6 +8,7 @@ st.subheader("www")
 
 def plot_stock_chart(symbol, start_date, end_date):
     df = fdr.DataReader(symbol, start_date, end_date)
+    df = df.rename(columns={'open': 'Open', 'high': 'High', 'low': 'Low', 'close': 'Close'})
     fig = go.Figure(data=go.Candlestick(x=df.index,
                                         open=df['Open'],
                                         high=df['High'],
