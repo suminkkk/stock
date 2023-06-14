@@ -8,12 +8,12 @@ st.subheader("www")
 
 def plot_stock_chart(symbol, start_date, end_date):
     df = fdr.DataReader(symbol, start_date, end_date)
-    df = df.rename(columns={'open': 'Open', 'high': 'High', 'low': 'Low', 'close': 'Close'})
+    df = df.rename(columns={'Open': 'open', 'High': 'high', 'Low': 'low', 'Close': 'close'})
     fig = go.Figure(data=go.Candlestick(x=df.index,
-                                        open=df['Open'],
-                                        high=df['High'],
-                                        low=df['Low'],
-                                        close=df['Close']))
+                                        open=df['open'],
+                                        high=df['high'],
+                                        low=df['low'],
+                                        close=df['close']))
     st.plotly_chart(fig)
 
 # 차트 출력
