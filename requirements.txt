@@ -1,1 +1,1 @@
-finance-datareader
+finance-datareader==0.9.1
