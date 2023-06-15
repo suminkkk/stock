@@ -58,11 +58,11 @@ def get_popular_search_keywords():
     
     return keywords[:5]
     
-
+popular_keywords = get_popular_search_keywords()
 
 
 if __name__ == '__main__':
     main()
-    popular_keywords = get_popular_search_keywords()
+    
     for i, keyword in enumerate(popular_keywords, 1):
         print(f"{i}. {keyword}")
