@@ -47,7 +47,7 @@ def ranking():
     # 주식 시가 총액 상위 20개 종목 데이터 가져오기
     df_ranking = fdr.StockListing('KRX')  # KRX 시장의 주식 목록 가져오기
     df_ranking = df_ranking[['Name', 'Marcap']]  # 필요한 열 선택
-    df_ranking = df_ranking.nlargest(10, 'Marcap')  # 시가 총액 상위 20개 종목 선택
+    df_ranking = df_ranking.nlargest(10, 'Marcap')  # 시가 총액 상위 10개 종목 선택
 
     # 시가 총액 순위별로 정렬
     df_ranking = df_ranking.sort_values(by='Marcap', ascending=True)
@@ -64,7 +64,7 @@ def ranking():
 
     # 레이아웃 설정
     fig.update_layout(
-        title='KRX 상위 20개 종목의 시가 총액',
+        title='KRX 상위 10개 종목의 시가 총액',
         xaxis=dict(title='시가 총액 (조)'),
         yaxis=dict(title='종목명'),
         bargap=0.1
