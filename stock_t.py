@@ -8,9 +8,15 @@ def main():
     # 제목
     st.title("[주식 차트 대시보드]")
     st.title("KOSPI")
-    st.subheader("KS11")
 
-    symbol = 'KS11'
+    # 주식 종목 리스트
+    kospi_list = fdr.StockListing('KRX')
+    kospi_names = kospi_list['Name'].tolist()
+    kospi_Code = kospi_list['Code'].tolist()
+
+    # 주식 종목 선택 드롭다운 메뉴
+    symbol_idx = st.selectbox("KOSPI 주식 종목 선택", kospi_names)
+    symbol = kospi_Code[kospi_names.index(symbol_idx)]
 
     # 사용자로부터 시작 날짜와 종료 날짜 입력 받기
     col1, col2 = st.columns(2)
@@ -37,32 +43,37 @@ def main():
     # 차트 출력
     plot_stock_chart(symbol, start_date_str, end_date_str)
 
-    # 날짜 하드코딩
-    tab1, tab2, tab3, tab4 = st.tabs(['1일' , '3개월', '1년','3년'])
-    with tab1:
-        plot_stock_chart(symbol,'2022-05-03','2022-05-04')
-    with tab2:
-        plot_stock_chart(symbol,'2022-05-01','2022-07-31')
-    with tab3:
-        plot_stock_chart(symbol,'2021-05-01','2022-05-31')
-    with tab4:
-        plot_stock_chart(symbol, '2020-05-01','2022-05-31')
+def ranking():
+    # 주식 시가 총액 상위 20개 종목 데이터 가져오기
+    df_ranking = fdr.StockListing('KRX')  # KRX 시장의 주식 목록 가져오기
+    df_ranking = df_ranking[['Name', 'Marcap']]  # 필요한 열 선택
+    df_ranking = df_ranking.nlargest(10, 'Marcap')  # 시가 총액 상위 20개 종목 선택
 
-def get_popular_search_keywords():
-    url = 'https://finance.naver.com/sise/sise_index.naver?code=KOSPI'
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-    keyword_elements = soup.select('.type_r1')
-    keywords = [keyword.text for keyword in keyword_elements]
-    st.text(keywords)
+    # 시가 총액 순위별로 정렬
+    df_ranking = df_ranking.sort_values(by='Marcap', ascending=True)
+
+    # 막대 그래프 생성
+    fig = go.Figure(data=go.Bar(
+        x=df_ranking['Marcap'] / 1e12,
+        y=df_ranking['Name'],
+        orientation='h',
+        text=df_ranking['Marcap'] / 1e12,
+        texttemplate='%{text:.0f} 조',
+        textposition='outside',
+    ))
+
+    # 레이아웃 설정
+    fig.update_layout(
+        title='KRX 상위 20개 종목의 시가 총액',
+        xaxis=dict(title='시가 총액 (조)'),
+        yaxis=dict(title='종목명'),
+        bargap=0.1
+    )
+
+    # 차트 출력
+    st.plotly_chart(fig)
+
     
-    return keywords[:5]
-    
-
-
-
 if __name__ == '__main__':
     main()
-    popular_keywords = get_popular_search_keywords()
-    for i, keyword in enumerate(popular_keywords, 1):
-        print(f"{i}. {keyword}")
+    ranking()
