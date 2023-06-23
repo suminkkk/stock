@@ -108,13 +108,12 @@ class StockRankingDashboard:
 
     # 등락률 테이블 출력
     def display_change_table(self, df_changeRanking):
-        st.title(self.market + ' 급등주식 TOP10')
         table_html = df_changeRanking.to_html(index=False)
-        table_html_with_title = f"<h2>급등주식</h2>{table_html}"
+        table_html_with_title = f"<h2>{self.market}급등주식 TOP10</h2>{table_html}"
 
         # Display HTML table using st.write
         st.write(table_html_with_title, unsafe_allow_html=True)
-        st.table(table_html)
+   
 
     def main(self):
        
